@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="container">
+    <div class="dashboard">
+
+ 
+    <div class="words">
+        <ng-container *ngFor="let item of movieName">
+            <div class="letter">
+                <span class="blackColor" *ngIf="!letters[item.toUpperCase()]; else showSpace"> {{item}}</span>
+                <ng-template #showSpace>
+                    <span> &nbsp;</span>
+                </ng-template>
+
+            </div>
+        </ng-container>
+
+    </div>
+
+    <div class="img-container">
+        <img *ngIf="guess>0 && guess<=7" src="assets/images/Hangman {{guess}}.png" />
+
+        <div class="message" *ngIf="gameOver || finished">
+            <p>{{msgText}}</p>
+            <img   *ngIf="gameOver; else finished"src="assets/images/shit_symbol.png" />
+            <ng-template #finished>
+                    <img  src="assets/images/yes_symbol.png" />
+            </ng-template>
+          
+        </div>
+  
+    </div>
+</div>
+
+</div>
+
+<div class="keyboard">
+        <ng-container *ngFor="let letter of letters  | keyvalue uppercase">
+
+            <button class="{{letter.key}} btn" [disabled]="!letters[letter.key.toUpperCase()]"
+                [ngClass]="{'disabled': !letters[letter.key.toUpperCase()] }" (click)="checkLetter(letter.key)">
+                {{letter.key}}
+            </button>
+
+        </ng-container>
+    </div>
